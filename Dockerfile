@@ -2,8 +2,7 @@
 FROM golang:1.21-alpine AS builder
 WORKDIR /src
 COPY . .
-WORKDIR /src/server
-RUN CGO_ENABLED=0 GOOS=linux go build -o /tmp/tempconv-server ./
+RUN CGO_ENABLED=0 GOOS=linux go build -o /tmp/tempconv-server ./server
 
 FROM alpine:3.18
 RUN apk add --no-cache ca-certificates
