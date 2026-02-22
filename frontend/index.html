@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TempConv</title>
+</head>
+<body>
+  <h1>Temperature Converter</h1>
+  <input id="celsius" type="number" placeholder="Celsius">
+  <button onclick="convert()">Convert</button>
+  <p id="result"></p>
+
+  <script>
+    async function convert() {
+      const c = document.getElementById('celsius').value;
+      const resEl = document.getElementById('result');
+      try {
+        const resp = await fetch('http://localhost:8080/convert?celsius=' + encodeURIComponent(c));
+        if (!resp.ok) {
+          resEl.textContent = 'Error: ' + resp.status;
+          return;
+        }
+        const data = await resp.json();
+        resEl.textContent = `${data.celsius} °C = ${data.fahrenheit} °F`;
+      } catch (e) {
+        resEl.textContent = 'Request failed: ' + e;
+      }
+    }
+  </script>
+</body>
+</html>
