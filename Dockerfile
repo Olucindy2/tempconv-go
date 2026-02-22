@@ -2,7 +2,6 @@
 FROM golang:1.21-alpine AS builder
 WORKDIR /src
 COPY . .
-RUN go mod tidy
 RUN CGO_ENABLED=0 GOOS=linux go build -o /tmp/tempconv-server ./server
 
 FROM alpine:3.18
